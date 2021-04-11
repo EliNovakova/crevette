@@ -5,6 +5,7 @@ from django.utils import timezone
 
 
 class Shrimp(models.Model):
+    # constants - should be upper case letters
     PINK = 'PI'
     WHITE = 'WH'
     GREEN = 'GR'
@@ -21,7 +22,7 @@ class Shrimp(models.Model):
     ]
     name = models.CharField(max_length=126)
     # not now() because in that case the function would be executed straight away but we want to execute it at creation of the object
-    birth_date = models.DateTimeField('is born', default=timezone.now)
+    birth_date = models.DateTimeField('Birth Date', default=timezone.now)
     size = models.IntegerField()
     weight = models.IntegerField()
     color = models.CharField(max_length=2, choices=SHRIMP_COLOR_CHOICES)
