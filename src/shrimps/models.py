@@ -23,8 +23,8 @@ class Shrimp(models.Model):
     name = models.CharField(max_length=126)
     # not now() because in that case the function would be executed straight away but we want to execute it at creation of the object
     birth_date = models.DateTimeField('Birth Date', default=timezone.now)
-    size = models.IntegerField()
-    weight = models.IntegerField()
+    size_mm = models.IntegerField('Size (mm)')
+    weight_g = models.IntegerField('Weight (g)')
     color = models.CharField(max_length=2, choices=SHRIMP_COLOR_CHOICES)
     is_farmed = models.BooleanField(default=True)
 
