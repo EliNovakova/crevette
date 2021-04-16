@@ -1,7 +1,11 @@
+
+from random import randint, choice
+
 from django.shortcuts import render
 
 from django.http import HttpResponse
 from shrimps.models import Shrimp
+
 
 # Create your views here.
 
@@ -21,3 +25,18 @@ def home(request):
     last_shrimp = Shrimp.objects.order_by('-birth_date')[0]
 
     return HttpResponse(f"""There are {num_shrimps} shrimps in our aquarium. Last shrimp born is {last_shrimp}""")
+
+
+def give_birth_to_shrimp(request):
+    """random shrimp generator: every time the page is loaded generates a new random shrimp"""
+
+    SHRIMP_NAME_LIST = ["Richard", "Gerard", "Niky", "Hubert", "Crevette", "Paul", "Eli", "Evi"]
+    # at first generate the random fields, then create a Shrimp model and populate it
+    baby_shrimp_weight = randint(10, 400)
+    baby_shrimp_size = randint(10, 100)
+    baby_shrimp_name = choice(SHRIMP_NAME_LIST)
+    baby_shrimp_color = choice(Shrimp.SHRIMP_COLOR_CHOICES)
+    baby_shrimp = Shrimp(name=baby_shrimp_name, size_mm=baby_shrimp_size,
+                         weight_g=baby_shrimp_weight, color=baby_shrimp_color)
+    baby_shrimp.save()
+    return HttpResponse(f"""The baby shrimp {baby_shrimp.name} is born, weighs {baby_shrimp.weight_g} g and measures {baby_shrimp.size_mm} mm""")
