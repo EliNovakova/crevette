@@ -15,7 +15,7 @@ def home(request):
 
     content = f"""There are {nb_shrimps} shrimps in our aquarium."""
 
-    last_shrimp = Shrimp.objects.last()
+    last_shrimp = Shrimp.objects.order_by('birth_date').last()
     if last_shrimp is not None:
         content += f""" The last shrimp born is {last_shrimp}."""
 
