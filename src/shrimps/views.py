@@ -38,7 +38,8 @@ def give_birth_to_shrimp(request):
     baby_shrimp_size = randint(10, 100)
     baby_shrimp_name = choice(SHRIMP_NAME_LIST)
     baby_shrimp_color = choice(Shrimp.SHRIMP_COLOR_CHOICES)[0]  # takes first element of the returned tuple
+    baby_shrimp_is_farmed = bool(randint(0, 1))
     baby_shrimp = Shrimp(name=baby_shrimp_name, size_mm=baby_shrimp_size,
-                         weight_g=baby_shrimp_weight, color=baby_shrimp_color)
+                         weight_g=baby_shrimp_weight, color=baby_shrimp_color, is_farmed=baby_shrimp_is_farmed)
     baby_shrimp.save()
     return HttpResponse(f"""The baby shrimp {baby_shrimp.name} is born, weighs {baby_shrimp.weight_g} g and measures {baby_shrimp.size_mm} mm""")
