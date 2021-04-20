@@ -15,8 +15,8 @@ def home(request):
 
     # num_shrimps = len(Shrimp.objects.all())
     num_shrimps = Shrimp.objects.count()
-    # Shrimp.objects.all() = FROM shrimp SELECT *
-    # Shrimp.objects.all() = FROM shrimp SELECT COUNT(*)
+    # Shrimp.objects.all() = SELECT * FROM shrimp
+    # Shrimp.objects.all() = SELECT COUNT(*) FROM shrimp
 
     # calling count() is more efficient than calling len() because
     # count() calls SQL-specific function COUNT which is optimized and returns only a number
