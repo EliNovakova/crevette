@@ -37,7 +37,7 @@ def give_birth_to_shrimp(request):
     baby_shrimp_weight = randint(10, 400)
     baby_shrimp_size = randint(10, 100)
     baby_shrimp_name = choice(SHRIMP_NAME_LIST)
-    baby_shrimp_color = choice(Shrimp.SHRIMP_COLOR_CHOICES)
+    baby_shrimp_color = choice(Shrimp.SHRIMP_COLOR_CHOICES)[0]  # takes first element of the returned tuple
     baby_shrimp = Shrimp(name=baby_shrimp_name, size_mm=baby_shrimp_size,
                          weight_g=baby_shrimp_weight, color=baby_shrimp_color)
     baby_shrimp.save()
