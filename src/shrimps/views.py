@@ -22,9 +22,11 @@ def home(request):
     # count() calls SQL-specific function COUNT which is optimized and returns only a number
     # whereas for len() we need to get all objects from the database and only then do the count locally
 
-    last_shrimp = Shrimp.objects.order_by('-birth_date')[0]
-
-    return HttpResponse(f"""There are {num_shrimps} shrimps in our aquarium. Last shrimp born is {last_shrimp}""")
+    last_shrimp = Shrimp.objects.order_by('birth_date').last()
+    if last_shrimp is None:
+        return HttpResponse(f"""There are 0 shrimps in our aquarium. """)
+    else:
+        return HttpResponse(f"""There are {num_shrimps} shrimps in our aquarium. Last shrimp born is {last_shrimp}""")
 
 
 def give_birth_to_shrimp(request):
