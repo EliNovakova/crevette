@@ -1,0 +1,18 @@
+
+
+
+{% if all_shrimps %}
+    <p> There are {{num_shrimps}} shrimps in our aquarium. Last shrimp born is {{last_shrimp}} </p>
+    <ul>
+    {% for shrimp in all_shrimps %}
+        <li><a href="{% url 'shrimps:detail' shrimp.id %}">{{ shrimp.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>There are currently no shrimps in the aquarium.</p>
+{% endif %}
+
+<p> You can generate and add a new shrimp by clicking here:
+<a href="{% url 'shrimps:give-birth' %}"> Generate shrimp</a>
+
+

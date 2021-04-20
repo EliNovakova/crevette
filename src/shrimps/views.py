@@ -2,6 +2,7 @@
 from random import randint, choice
 
 from django.shortcuts import render
+from django.template import loader
 
 from django.http import HttpResponse
 from shrimps.models import Shrimp
@@ -24,7 +25,14 @@ def home(request):
 
     last_shrimp = Shrimp.objects.order_by('-birth_date')[0]
 
-    return HttpResponse(f"""There are {num_shrimps} shrimps in our aquarium. Last shrimp born is {last_shrimp}""")
+    all_shrimps = Shrimp.objects.all()
+    context = {
+        'all_shrimps': all_shrimps,
+        'num_shrimps': num_shrimps,
+        'last_shrimp': last_shrimp,
+    }
+    # possible to avoid few lines by applying a shortcut to render
+    return render(request, 'shrimps/home.html', context)
 
 
 def give_birth_to_shrimp(request):
@@ -40,3 +48,13 @@ def give_birth_to_shrimp(request):
                          weight_g=baby_shrimp_weight, color=baby_shrimp_color)
     baby_shrimp.save()
     return HttpResponse(f"""The baby shrimp {baby_shrimp.name} is born, weighs {baby_shrimp.weight_g} g and measures {baby_shrimp.size_mm} mm""")
+
+
+def detail(request, shrimp_id):
+    """view details of a shrimp"""
+
+    shrimp = Shrimp.objects.get(id=shrimp_id)
+    context = {
+        'shrimp': shrimp
+    }
+    return render(request, 'shrimps/detail.html', context)
