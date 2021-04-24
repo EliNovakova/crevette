@@ -1,0 +1,11 @@
+<h1>The shrimp aquarium</h1>
+
+{%if num_total_shrimps == 0 %}
+    <p> There are currently no shrimps in the aquarium </p> 
+{%else%}
+    <p> There are {{num_total_shrimps}} shrimps in the aquarium </p> 
+    <ul>
+    {% for shrimp in shrimp_list%}
+        <li> <a href="{% url 'shrimps:detail' shrimp.id %}" > {{shrimp.name}} </li>
+    {%endfor%}
+{%endif%}

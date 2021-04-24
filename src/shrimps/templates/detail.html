@@ -1,0 +1,13 @@
+
+<h1> Details about {{ shrimp.name }}</h1>
+<ul>
+    <li><p>Name: {{ shrimp.name }}</p></li>
+    <li><p>Size: {{ shrimp.size_mm }} mm</p></li>
+    <li><p>Weight: {{ shrimp.weight_g }} g</p></li>
+    <li><p>Birth Date: {{ shrimp.birth_date }}</p></li>
+    {%if shrimp.is_farmed%}
+    <li><p>{{shrimp.name}} is farmed</p></li>
+    {%else%}
+    <li><p>{{shrimp.name}} is FREE</p></li>
+    {%endif%}
+</ul>

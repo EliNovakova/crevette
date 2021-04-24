@@ -22,11 +22,17 @@ def home(request):
     # count() calls SQL-specific function COUNT which is optimized and returns only a number
     # whereas for len() we need to get all objects from the database and only then do the count locally
 
-    last_shrimp = Shrimp.objects.order_by('birth_date').last()
-    if last_shrimp is None:
-        return HttpResponse(f"""There are 0 shrimps in our aquarium. """)
-    else:
-        return HttpResponse(f"""There are {num_shrimps} shrimps in our aquarium. Last shrimp born is {last_shrimp}""")
+    # last_shrimp = Shrimp.objects.order_by('birth_date').last()
+    # if last_shrimp is None:
+    #     return HttpResponse(f"""There are 0 shrimps in our aquarium. """)
+    # else:
+    #     return HttpResponse(f"""There are {num_shrimps} shrimps in our aquarium. Last shrimp born is {last_shrimp}""")
+
+    context = {
+        "num_total_shrimps": num_shrimps,
+        "shrimp_list": Shrimp.objects.all(),
+    }
+    return render(request, "home.html", context=context)
 
 
 def give_birth_to_shrimp(request):
@@ -43,3 +49,13 @@ def give_birth_to_shrimp(request):
                          weight_g=baby_shrimp_weight, color=baby_shrimp_color, is_farmed=baby_shrimp_is_farmed)
     baby_shrimp.save()
     return HttpResponse(f"""The baby shrimp {baby_shrimp.name} is born, weighs {baby_shrimp.weight_g} g and measures {baby_shrimp.size_mm} mm""")
+
+
+def shrimp_detail(request, shrimp_id):
+    """display detail of a particular shrimp"""
+
+    context = {
+        "shrimp": Shrimp.objects.filter(id=shrimp_id).first()
+    }
+
+    return render(request, "detail.html", context=context)
