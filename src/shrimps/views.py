@@ -16,23 +16,27 @@ def home(request):
     # SELECT * FROM shrimp  (what len() does)
     # SELECT COUNT(*) FROM shrimp (what count() does)
 
-    last_shrimp_born = Shrimp.objects.order_by('-birth_date').first()   # orders by birth date desc, displays the first
-    return HttpResponse(f"""There are {num_shrimps} shrimps in our aquarium. The last shrimp born is 
-                        {last_shrimp_born}.""")
+    content1 = f"""There are {num_shrimps} shrimps in our aquarium."""
+
+    last_shrimp_born = Shrimp.objects.order_by('birth_date').last()   # orders by birth date asc, displays the last
+    if last_shrimp_born is not None:    # if there are shrimp in our aquarium
+        return HttpResponse(f"""There are {num_shrimps} shrimps in our aquarium. The last shrimp born is {last_shrimp_born}.""")
+    else:   # if there aren't any shrimp in our aquarium
+        return HttpResponse(f"""There are {num_shrimps} shrimps in our aquarium.""")
 
 
 def give_birth_to_shrimp(request):
     """Creates a new shrimp with random name, size, weight and color and saves it to the database
     every time the page reloads."""
-    names = ["Max", "Cooper", "Ollie", "Walter", "Apollo", "Milo", "Billy"]
+    names = ["Max", "Cooper", "Ollie", "Walter", "Apollo", "Milo", "Billy", "Gerard"]
     name= choice(names)
     size = randint(10, 40)
     weight = randint(1, 10)
-    color = choice(Shrimp.COLOR_CHOICES)
+    color = choice(Shrimp.COLOR_CHOICES)[0]     # returns tuple, [0] takes its first item
+    is_farmed = bool(randint(0, 1))
 
-    new_shrimp = Shrimp(name=name, size=size, weight=weight, color=color)
+    new_shrimp = Shrimp(name=name, size=size, weight=weight, color=color, is_farmed=is_farmed)
     new_shrimp.save()
-    # difference between save() and objects.create()?
 
     return HttpResponse(
          f"""A new baby shrimp named {name} is born, it weights {weight} g and measures {size} mm.""")
