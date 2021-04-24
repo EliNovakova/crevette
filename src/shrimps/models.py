@@ -30,4 +30,4 @@ class Shrimp(models.Model):
 
     # a print method
     def __str__(self):
-        return f'''The shrimp {self.name} is born on {self.birth_date}, measures {self.size} mm, weights {self.weight} grams, is of color {self.get_color_display()} and is {'FARMED' if self.is_farmed else 'FREE'}'''
+        return f'''{self.name} the shrimp'''
