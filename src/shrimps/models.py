@@ -13,8 +13,8 @@ class Shrimp(models.Model):
     ]
     name = models.CharField(max_length=126)
     birth_date = models.DateTimeField(default=timezone.now)
-    size = models.IntegerField("mm")
-    weight = models.IntegerField("g")
+    size = models.IntegerField("size (mm)")
+    weight = models.IntegerField("weight (g)")
     color = models.CharField(max_length=32, choices=COLOR_CHOICES)
     is_farmed = models.BooleanField(default=True)
 
