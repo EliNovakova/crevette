@@ -8,6 +8,7 @@ def home(request):
     """Home page: display the number of shrimp in our aquarium."""
 
     num_shrimps = Shrimp.objects.count()
+    all_shrimps = Shrimp.objects.all()
     # num_shrimps = len(Shrimp.objects.all())
 
     # count() - returns an int representing the number of objects in database
@@ -20,16 +21,20 @@ def home(request):
 
     last_shrimp_born = Shrimp.objects.order_by('birth_date').last()   # orders by birth date asc, displays the last
     if last_shrimp_born is not None:    # if there are shrimp in our aquarium
-        return HttpResponse(f"""There are {num_shrimps} shrimps in our aquarium. The last shrimp born is {last_shrimp_born}.""")
-    else:   # if there aren't any shrimp in our aquarium
-        return HttpResponse(f"""There are {num_shrimps} shrimps in our aquarium.""")
+        content1 += f"""The last shrimp born is {last_shrimp_born}."""  # adds this to the content
+
+    context = {
+        "num_total_shrimps": num_shrimps,
+        "all_shrimps": all_shrimps
+    }
+    return render(request, template_name="home.html", context=context)
 
 
 def give_birth_to_shrimp(request):
     """Creates a new shrimp with random name, size, weight and color and saves it to the database
     every time the page reloads."""
     names = ["Max", "Cooper", "Ollie", "Walter", "Apollo", "Milo", "Billy", "Gerard"]
-    name= choice(names)
+    name = choice(names)
     size = randint(10, 40)
     weight = randint(1, 10)
     color = choice(Shrimp.COLOR_CHOICES)[0]     # returns tuple, [0] takes its first item
@@ -38,11 +43,19 @@ def give_birth_to_shrimp(request):
     new_shrimp = Shrimp(name=name, size=size, weight=weight, color=color, is_farmed=is_farmed)
     new_shrimp.save()
 
-    return HttpResponse(
-         f"""A new baby shrimp named {name} is born, it weights {weight} g and measures {size} mm.""")
+    context = {
+        "shrimp": new_shrimp,
+    }
+    return render(request, template_name="detail.html", context=context)
 
 
+def shrimp_detail(request, shrimp_id):
+    """Display detail of shrimp."""
+    shrimp = Shrimp.objects.get(id=shrimp_id)
 
-
+    context = {
+        "shrimp": shrimp,
+    }
+    return render(request, template_name="detail.html", context=context)
 
 
