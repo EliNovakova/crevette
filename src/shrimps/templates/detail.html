@@ -1,3 +1,6 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'shrimps/style.css' %}">
 
 <h1> Details about {{ shrimp.name }}</h1>
 <ul>
@@ -11,3 +14,5 @@
     <li><p>{{shrimp.name}} is FREE</p></li>
     {%endif%}
 </ul>
+
+<p> <a class="button" href="{% url 'shrimps:home' %}" > Homepage </a></p>

@@ -1,0 +1,36 @@
+
+h1 {
+    text-align: center;
+    color: rgb(197, 0, 0);
+}
+
+.button {
+    background-color: rgb(196, 192, 255);
+    border: none;
+    color:black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.detail_button {
+    background-color:  rgb(196, 192, 255);
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    color:black;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 1px;
+}

@@ -48,7 +48,13 @@ def give_birth_to_shrimp(request):
     baby_shrimp = Shrimp(name=baby_shrimp_name, size_mm=baby_shrimp_size,
                          weight_g=baby_shrimp_weight, color=baby_shrimp_color, is_farmed=baby_shrimp_is_farmed)
     baby_shrimp.save()
-    return HttpResponse(f"""The baby shrimp {baby_shrimp.name} is born, weighs {baby_shrimp.weight_g} g and measures {baby_shrimp.size_mm} mm""")
+
+    context = {
+        "shrimp": baby_shrimp,
+    }
+
+    return render(request, "detail.html", context=context)
+    # return HttpResponse(f"""The baby shrimp {baby_shrimp.name} is born, weighs {baby_shrimp.weight_g} g and measures {baby_shrimp.size_mm} mm""")
 
 
 def shrimp_detail(request, shrimp_id):
