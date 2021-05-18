@@ -1,6 +1,6 @@
 from random import randint, choice
 
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
 
 from shrimps.models import Shrimp
 
@@ -8,18 +8,14 @@ from shrimps.models import Shrimp
 def home(request):
     """ home page: display the numbers of shrimps inside our aquarium """
 
-    nb_shrimps = Shrimp.objects.count()
-    # SELECT COUNT(*) FROM shrimp;
-    # nb_shrimps = len(Shrimp.objects.all())
-    # SELECT * FROM shrimp;
+    all_shrimps = Shrimp.objects.order_by('birth_date').all()
 
-    content = f"""There are {nb_shrimps} shrimps in our aquarium."""
+    context = {
+        "nb_shrimps": len(all_shrimps),
+        "all_shrimps": all_shrimps
+    }
 
-    last_shrimp = Shrimp.objects.order_by('birth_date').last()
-    if last_shrimp is not None:
-        content += f""" The last shrimp born is {last_shrimp}."""
-
-    return HttpResponse(content)
+    return render(request, "shrimps/home.html", context)
 
 
 def give_birth_to_shrimp(request):
@@ -33,5 +29,13 @@ def give_birth_to_shrimp(request):
         is_farmed=bool(randint(0, 1)),
     )
 
-    return HttpResponse(f"""A new baby shrimp named {baby_shrimp.name} is born and weighs
-                        {baby_shrimp.weight} grams and measures {baby_shrimp.size} mm.""")
+    return render(request, "shrimps/detail.html", context={"shrimp": baby_shrimp, "created": True})
+
+
+def shrimp_detail(request, shrimp_id):
+    """ display detail of a particular shrimp """
+
+    shrimp = get_object_or_404(Shrimp, id=shrimp_id)
+    # shrimp = Shrimp.objects.get(id=shrimp_id)
+
+    return render(request, "shrimps/detail.html", context={"shrimp": shrimp})
