@@ -1,0 +1,16 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'shrimps/style.css' %}">
+
+<h1>{{shrimp.name }} {% if created %} is Born {% else %} detail {% endif %} </h1>
+
+<ul> 
+    <li>Name: {{shrimp.name}}</li>
+    <li>Weight: {{shrimp.weight}} g</li>
+    <li>Size: {{shrimp.size}} mm</li>
+    <li>Color: {{shrimp.get_color_display}}</li>
+    <li>Birth Date: {{shrimp.birth_date}}</li>
+    <li>Is farmed ?: {{shrimp.is_farmed}}</li>
+</ul>
+
+<a class="button" href="{% url 'shrimps:home' %}"> Home </a>
