@@ -51,7 +51,8 @@ def give_birth_to_shrimp(request):
 
 def shrimp_detail(request, shrimp_id):
     """Display detail of shrimp."""
-    shrimp = Shrimp.objects.get(id=shrimp_id)
+    shrimp = Shrimp.objects.filter(id=shrimp_id).first()    # doesn't show error if there is no shrimp in the database
+    # shrimp = Shrimp.objects.get(id=shrimp_id)
 
     context = {
         "shrimp": shrimp,
