@@ -1,0 +1,16 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'shrimps/style.css' %}">
+
+<h1>The shrimp aquarium</h1>
+<p>There are {{ num_total_shrimps }} shrimps in the aquarium.</p>
+
+<a class="button" href="{% url 'shrimps:give-birth' %}"> Create a random shrimp </a>
+
+<ul>
+    {% for shrimp in all_shrimps %}
+        <li><a href="{% url 'shrimps:detail' shrimp.id %}">{{shrimp.name}}</a></li>
+    {% empty %}
+        <li>There is no shrimp in our aquarium.</li>
+    {%endfor%}
+</ul>
