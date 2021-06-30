@@ -4,15 +4,16 @@
 
 <h1>The shrimp aquarium</h1>
 
-{%if num_total_shrimps == 0 %}
+{% if num_total_shrimps == 0 %}
     <p> There are currently no shrimps in the aquarium </p> 
-{%else%}
+{% else %}
     <p> There are {{num_total_shrimps}} shrimps in the aquarium </p> 
     <ul>
     {% for shrimp in shrimp_list%}
         <li> <a class="detail_button" href="{% url 'shrimps:detail' shrimp.id %}" > {{shrimp.name}} </a></li>
-    {%endfor%}
-{%endif%}
+    {% endfor %}
+    </ul>
+{% endif %}
 
 <img src="{% static 'shrimps/images/crevette_img1.jpg' %}" alt="shrimp">
 <p> <a class="button" href="{% url 'shrimps:give-birth' %}" > Create a new random shrimp </a></p>
