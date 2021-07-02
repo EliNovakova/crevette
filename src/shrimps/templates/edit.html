@@ -1,0 +1,11 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'shrimps/style.css' %}">
+
+<h1>Edit Shrimp</h1>
+
+    <form method="POST" >
+        {{form}}
+        {% csrf_token %}
+        <input type="submit" value="Submit"> <br>
+    </form>

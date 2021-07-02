@@ -1,9 +1,10 @@
 
 from random import randint, choice
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 
 from django.http import HttpResponse
+from shrimps.forms import ShrimpForm
 from shrimps.models import Shrimp
 
 
@@ -65,3 +66,18 @@ def shrimp_detail(request, shrimp_id):
     }
 
     return render(request, "detail.html", context=context)
+
+
+def edit_shrimp(request, shrimp_id=None):
+    """edit details of a particular shrimp"""
+
+    shrimp = Shrimp.filter(id=shrimp_id).first() if shrimp_id else None
+    if request.method == "POST":
+        form = ShrimpForm(data=request.POST, instance=shrimp)
+        if form.is_valid():
+            shrimp = form.save()
+            return redirect("shrimps:detail", shrimp_id=shrimp.id)
+    else:  # in this case it's a create function
+        form = ShrimpForm(instance=shrimp)
+
+    return render(request, "edit.html", context={"form": form})
