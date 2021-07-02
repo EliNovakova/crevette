@@ -71,7 +71,7 @@ def shrimp_detail(request, shrimp_id):
 def edit_shrimp(request, shrimp_id=None):
     """edit details of a particular shrimp"""
 
-    shrimp = Shrimp.filter(id=shrimp_id).first() if shrimp_id else None
+    shrimp = Shrimp.objects.filter(id=shrimp_id).first() if shrimp_id else None
     if request.method == "POST":
         form = ShrimpForm(data=request.POST, instance=shrimp)
         if form.is_valid():

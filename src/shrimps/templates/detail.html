@@ -2,32 +2,21 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'shrimps/style.css' %}">
 {% if shrimp == NULL %}
-<h1> Oups, this page does not exist</h1>
+    <h1> Oups, this page does not exist</h1>
 {% else %}
-<h1> Details about {{ shrimp.name }}</h1>
-<ul>
-    <li>
-        <p>Name: {{ shrimp.name }}</p>
-    </li>
-    <li>
-        <p>Size: {{ shrimp.size_mm }} mm</p>
-    </li>
-    <li>
-        <p>Weight: {{ shrimp.weight_g }} g</p>
-    </li>
-    <li>
-        <p>Birth Date: {{ shrimp.birth_date }}</p>
-    </li>
-    {% if shrimp.is_farmed %}
-    <li>
-        <p>{{shrimp.name}} is farmed</p>
-    </li>
-    {% else %}
-    <li>
-        <p>{{shrimp.name}} is FREE</p>
-    </li>
-    {% endif %}
-</ul>
+    <h1> Details about {{ shrimp.name }}</h1>
+    <ul>
+        <li><p>Name: {{ shrimp.name }}</p></li>
+        <li><p>Size: {{ shrimp.size_mm }} mm</p></li>
+        <li><p>Weight: {{ shrimp.weight_g }} g</p></li>
+        <li><p>Birth Date: {{ shrimp.birth_date }}</p></li>
+        {% if shrimp.is_farmed %}
+        <li><p>{{shrimp.name}} is farmed</p></li>
+        {% else %}
+        <li><p>{{shrimp.name}} is FREE</p></li>
+        {% endif %}
+    </ul>
 {% endif %}
 
-<p> <a class="button" href="{% url 'shrimps:home' %}"> Homepage </a></p>
+<p> <a class="button" href="{% url 'shrimps:edit' shrimp.id %}" > Edit this shrimp </a></p>
+<p> <a class="button" href="{% url 'shrimps:home' %}" > Homepage </a></p>
